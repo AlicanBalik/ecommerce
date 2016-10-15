@@ -1,0 +1,150 @@
+﻿@*@model List<Category>
+    @using ShoppingWeb.Models*@
+@{
+    //Html.Action("Listele", "Home");
+    //List<Category> listCategory = ViewData["listCategories"] as List<Category>;
+    ViewBag.Title = "Riba.com: Online Shopping for Wearing, Technology, Cosmetic, Accessory & more";
+}
+@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>@ViewBag.Title | Riba</title>
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Assets/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="~/Assets/js/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript" src="~/Assets/js/move-top.js"></script>
+    <script type="text/javascript" src="~/Assets/js/easing.js"></script>
+
+
+
+</head>
+<body>
+    <div class="header">
+        <div class="wrap">
+            <div class="header_top">
+                <div class="logo">
+                    <a href="/"><img src="~/assets/images/fish.png" alt="LOGO" /></a>
+                </div>
+                <div class="header_top_right">
+                    <div class="search_box">
+                        <span>Search</span>
+                        <form>
+                            <input type="text" value=""><input type="submit" value="">
+                        </form>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="navigation">
+                <a class="toggleMenu" href="#">Menu</a>
+                <ul class="nav">
+                    <li>
+                        @Html.ActionLink("Home", "Index", "Home")
+                    </li>
+                    <li class="test">
+                        @Html.ActionLink("Wearing", "Index", "Home")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Technology", "Index", "Home")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Cosmetic", "Index", "Home")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Accessory", "Index", "Home")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Contact", "Contact", "Home")
+                    </li>
+                    <li>
+                        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <a href="#">Admin</a>
+                            <ul>
+                                <li>
+                                    <a href="#">Roles</a>
+                                    <ul>
+                                        <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
+                                        <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Category</a>
+                                    <ul>
+                                        <li>@Html.ActionLink("Categories", "Index", "Category")</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Gender</a>
+                                    <ul>
+                                        <li>@Html.ActionLink("Genders", "Index", "Gender")</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Product</a>
+                                    <ul>
+                                        <li>@Html.ActionLink("Products", "Index", "Product")</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        }
+                    </li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Account" })</li>
+                        <li>
+                            @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+
+                            }
+                        </li>
+                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a id="registerLink" href="/Account/Register">Register</a>
+                        </li>
+                        <li>
+                            <a id="loginLink" href="/Account/Login">Log in</a>
+                        </li>
+                    }
+                </ul>
+                <span class="left-ribbon"> </span>
+                <span class="right-ribbon"> </span>
+            </div>
+        </div>
+    </div>
+
+
+    @RenderBody()
+    <a href="#" id="toTop"> </a>
+    <script type="text/javascript" src="~/Assets/js/navigation.js"></script>
+    <hr />
+    <div class="footer">
+        <div class="wrap">
+            <div class="copy_right">
+                <p>Copyrights &copy; @DateTime.Now.Year Riba.com</p>
+            </div>
+            <div class="footer-nav">
+                <ul>
+                    <li><a href="#">Terms of Use</a> : </li>
+                    <li><a href="#">Privacy Policy</a> : </li>
+                    <li><a href="#">Contact Us</a> : </li>
+                    <li><a href="#">Sitemap</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
