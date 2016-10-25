@@ -1,4 +1,0 @@
-packages
-ShoppingWeb/Migrations
-WebShopping/ShoppingWeb/packages
-WebShopping/ShoppingWeb/Migrations
